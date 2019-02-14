@@ -1,13 +1,23 @@
 language: go
 
+matrix:
+  include:
+    - os: linux
+	  env: DOCKER_PUSH=true
+    - os: osx
+      # Do not start osx build for PR
+    #   if: type != pull_request
+    #   osx_image: xcode8
+	  env: DOCKER_PUSH=false
+
 services:
   - docker
 
 before_install:
-  - docker build -t registry.luxair.tech/push-we .
+  - env DOCKER_PUSH docker build -t registry.luxair.tech/push-we .
 
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: master
+# deploy:
+#   provider: script
+#   script: bash docker_push
+#   on:
+#     branch: master
