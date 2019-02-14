@@ -16,11 +16,11 @@ matrix:
 #   - docker
 
 before_install:
-  - if [[ "$DOCKER_PUSH" == "true" ]]; then docker build -t registry.luxair.tech/push-we .
+  - if [[ "$DOCKER_PUSH" == "true" ]]; then docker build -t registry.luxair.tech/push-we .; fi
 
 deploy:
   provider: script
   script: bash docker_push
   on:
     branch: master
-	condition: $DOCKER_PUSH = true
+	  condition: $DOCKER_PUSH = true
