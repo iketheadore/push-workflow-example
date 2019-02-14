@@ -4,14 +4,16 @@ matrix:
   include:
     - os: linux
       env: DOCKER_PUSH=true
+      services:
+        - docker
     - os: osx
       # Do not start osx build for PR
     #   if: type != pull_request
     #   osx_image: xcode8
       env: DOCKER_PUSH=false
 
-services:
-  - docker
+# services:
+#   - docker
 
 before_install:
   - env $DOCKER_PUSH docker build -t registry.luxair.tech/push-we .
