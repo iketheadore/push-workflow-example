@@ -3,24 +3,24 @@ language: go
 matrix:
   include:
     - os: linux
-      env: DOCKER_PUSH=true
+      # env: BUILD_DOCKER=true
       services:
         - docker
     - os: osx
       # Do not start osx build for PR
-    #   if: type != pull_request
-    #   osx_image: xcode8
-      env: DOCKER_PUSH=false
+      if: type != pull_request
+      osx_image: xcode8
+      # env: BUILD_DOCKER=false
 
 # services:
 #   - docker
 
 before_install:
-  - if [[ "$DOCKER_PUSH" == "true" ]]; then docker build -t registry.luxair.tech/push-we .; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" == false ]]; then docker build -t registry.luxair.tech/push-we .; fi
 
 deploy:
   provider: script
   script: bash docker_push
   on:
     branch: master
-    condition: $DOCKER_PUSH = true
+    condition: $TRAVIS_OS_NAME = linux && $TRAVIS_PULL_REQUEST = false
