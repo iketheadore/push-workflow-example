@@ -16,7 +16,7 @@ matrix:
 #   - docker
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" == false ]]; then docker build -t registry.luxair.tech/push-we .; fi
+  - if [[ "$TRAVIS_OS_NAME" == linux && "$TRAVIS_PULL_REQUEST" == false ]]; then docker build -t registry.luxair.tech/push-we .; fi
 
 deploy:
   provider: script
