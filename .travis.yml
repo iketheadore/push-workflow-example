@@ -12,9 +12,6 @@ matrix:
       osx_image: xcode8
       # env: BUILD_DOCKER=false
 
-# services:
-#   - docker
-
 script:
   - if [[ "$TRAVIS_OS_NAME" == linux && "$TRAVIS_PULL_REQUEST" == false ]]; then docker build -t registry.luxair.tech/push-we .; fi
   on:
